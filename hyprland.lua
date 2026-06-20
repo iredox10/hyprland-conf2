@@ -37,7 +37,6 @@ hl.on("hyprland.start", function ()
     hl.dsp.exec_cmd("/usr/libexec/polkit-gnome-authentication-agent-1")
     hl.dsp.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.dsp.exec_cmd("wl-paste --type image --watch cliphist store")
-    hl.dsp.exec_cmd("swayosd-server")
     hl.dsp.exec_cmd("nm-applet --indicator")
     hl.dsp.exec_cmd("blueman-applet")
 end)
@@ -210,14 +209,14 @@ hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Volume Control (using SwayOSD)
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"), { repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"))
+-- Volume Control
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 
--- Brightness Control (using SwayOSD)
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"), { repeating = true })
+-- Brightness Control
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { repeating = true })
 
 -- Resize Window Bindings
 -- Note: Fixed syntax error from old config, now properly using SUPER
