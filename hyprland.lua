@@ -27,6 +27,8 @@ hl.monitor({
 ---- AUTOSTART ----
 -------------------
 hl.on("hyprland.start", function ()
+    hl.dsp.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.dsp.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.dsp.exec_cmd("waybar")
     hl.dsp.exec_cmd("hyprpaper")
     hl.dsp.exec_cmd("dunst")
@@ -111,7 +113,9 @@ hl.config({
 
     misc = {
         disable_hyprland_logo = true,
-        disable_splash_rendering = true
+        disable_splash_rendering = true,
+        enable_swallow = true,
+        swallow_regex = "^(kitty)$"
     }
 })
 
@@ -160,8 +164,14 @@ hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + O", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("pkill -USR2 waybar"))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("pkill -SIGHUP hyprpaper"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"))
+
+-- Scratchpad (Special Workspace)
+hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
+-- Night Light (Toggle blue light filter)
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("pkill wlsunset || wlsunset -t 4500"))
 
 -- Move focus
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
