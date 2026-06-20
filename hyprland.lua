@@ -39,6 +39,7 @@ hl.on("hyprland.start", function ()
     hl.dsp.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.dsp.exec_cmd("nm-applet --indicator")
     hl.dsp.exec_cmd("blueman-applet")
+    hl.dsp.exec_cmd("playerctld daemon")
 end)
 
 -------------------------------
