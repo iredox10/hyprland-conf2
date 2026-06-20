@@ -45,8 +45,10 @@ end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
+hl.env("OZONE_PLATFORM", "wayland")
+hl.env("XDG_SESSION_TYPE", "wayland")
+hl.env("QT_QPA_PLATFORMTHEME", "qt5ct") -- Enables uniform Qt/GTK theming
 hl.env("XCURSOR_SIZE", "24")
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
@@ -147,6 +149,13 @@ hl.window_rule({ name = "float-file-roller", match = { class = "file-roller" }, 
 -- Keep browser Picture-in-Picture mode floating and pinned to all workspaces
 hl.window_rule({ name = "float-pip", match = { title = "Picture-in-Picture" }, float = true, pin = true })
 
+-- App to Workspace Bindings
+hl.window_rule({ name = "workspace-firefox", match = { class = "firefox" }, workspace = "1" })
+hl.window_rule({ name = "workspace-discord", match = { class = "discord" }, workspace = "4" })
+hl.window_rule({ name = "workspace-webcord", match = { class = "WebCord" }, workspace = "4" })
+hl.window_rule({ name = "workspace-vesktop", match = { class = "vesktop" }, workspace = "4" })
+hl.window_rule({ name = "workspace-spotify", match = { class = "Spotify" }, workspace = "5" })
+
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
@@ -172,6 +181,13 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 
 -- Night Light (Toggle blue light filter)
 hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("pkill wlsunset || wlsunset -t 4500"))
+
+-- Emoji & Calculator Pickers
+hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd("rofimoji"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort"))
+
+-- Game Mode (Toggle animations & blur)
+hl.bind(mainMod .. " + SHIFT + G", hl.dsp.exec_cmd("~/.config/hypr/gamemode.sh"))
 
 -- Move focus
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
