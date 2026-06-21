@@ -29,8 +29,9 @@ hl.monitor({
 hl.on("hyprland.start", function ()
     hl.dsp.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.dsp.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-    hl.dsp.exec_cmd("waybar")
-    hl.dsp.exec_cmd("hyprpaper")
+    hl.dsp.exec_cmd("~/.config/hypr/waybar.sh")
+    hl.dsp.exec_cmd("hyprctl hyprpaper preload ~/.config/ml4w/wallpapers/wallpaper.jpg")
+    hl.dsp.exec_cmd("hyprctl hyprpaper wallpaper 'eDP-1,~/.config/ml4w/wallpapers/wallpaper.jpg'")
     hl.dsp.exec_cmd("dunst")
     -- New Essential Utilities
     hl.dsp.exec_cmd("hypridle")
